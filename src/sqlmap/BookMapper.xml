@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+  namespace属性:命名空间, 作用就是对sql进行分类管理, sql隔离
+   -->
+<mapper namespace="com.kaikeba.dao.BookMapper">
+  
+  <select id="findBookByParam" parameterType="book" resultType="book">
+  select * from t_book where 1=1
+  	<if test="bname != null and bname.trim() != ''">
+  		and bname like #{bname}
+  	</if>
+	  <if test="author != null">
+  		and author like #{author}
+  	</if>
+	  <if test="press != null">
+  		and press like #{press}
+  	</if>
+  </select>
+</mapper>

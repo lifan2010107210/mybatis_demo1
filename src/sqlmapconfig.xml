@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 类型别名 -->
+	<typeAliases>
+		<!-- 配置实体类的包
+  		在这个包下面的所有实体类都会自动生成一个别名(简单类名)
+  		 -->
+  	<package name="com.kaikeba.entity"/>
+   </typeAliases>
+	<!-- 数据源的配置会在整合spring之后去掉 -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/goods"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- 配置映射文件的路径 -->
+  <mappers>
+    <mapper resource="sqlmap/UserMapper.xml"/>
+     <mapper resource="sqlmap/UserMapper-new.xml"/>
+      <mapper resource="sqlmap/BookMapper.xml"/>
+  </mappers>
+</configuration>

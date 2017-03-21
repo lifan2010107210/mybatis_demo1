@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+  namespace属性:命名空间, 作用就是对sql进行分类管理, sql隔离
+   -->
+<mapper namespace="hello">
+	<!-- 
+	所有的增删改查都有对应的标签
+	查询:select标签
+	删除:delete标签
+	更新:update标签
+	增加:insert标签
+		id属性: 唯一标识一个statement
+		parameterType: 参数类型
+		resultType: 返回值的类型(全限定名)
+	 -->
+  <select id="getUserById" parameterType="int" resultType="com.kaikeba.entity.User">
+  	<!-- 
+  	#{}标识一个参数的占位符
+  	#{id}:其中的id表示接受输入的参数的名称是id, 如果参数是简单类型(int,String..), 参数名可以任意取
+  	 -->
+    select * from user where id=#{xxx}
+  </select>
+  
+  
+    <!-- 根据name去查询user -->
+  <!-- resultType指的是单条数据的映射类型
+   -->
+  <select id="getUserByName" parameterType="String" resultType="com.kaikeba.entity.User">
+  	select * from user where name like #{name}
+  </select>
+  
+  <select id="getUserByName2" parameterType="String" resultType="com.kaikeba.entity.User">
+  	<!-- $符号是直接拼接SQL,  相当于替换  而不是以?的形式来绑定参数 -->
+  	select * from user where name like '${value}'
+  </select>
+  
+  
+  <insert id="saveUser" parameterType="com.kaikeba.entity.User" >
+  insert into user(name,age) values(#{name},#{age})
+  </insert>
+  
+  
+   <insert id="saveUser1" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+  insert into user(name,age) values(#{name},#{age})
+  </insert>
+  <!-- 过时写法  -->
+  <insert id="saveUser2" parameterType="user">
+  	<selectKey keyProperty="id" order="AFTER" resultType="int">
+  	  select last_insert_id()
+  	</selectKey>
+  	  insert into user(name,age) values(#{name},#{age})
+  </insert>
+  
+  <delete id="deleteUserById" parameterType="int">
+  delete from user where id=#{id}
+  </delete>
+  
+  <update id="updateUser" parameterType="user">
+       update user set name=#{name},age=#{age} where id=#{id}
+  </update>
+  
+  
+  <update id="updateUser1" parameterType="user">
+  		update user set name=#{name} where id=#{id}
+  </update>
+</mapper>

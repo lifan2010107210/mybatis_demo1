@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+  namespace属性:命名空间, 作用就是对sql进行分类管理, sql隔离
+   -->
+<mapper namespace="com.kaikeba.dao.UserMapper">
+ 
+  
+
+  
+  <!-- 自定义一个映射规则, 具体映射某一个实体类的规则 -->
+  	<resultMap type="user" id="userMap">
+  	<!-- 其他没有配置的属性用默认一致的规则去映射 -->
+  	<result  column="username" property="name"/>
+  	</resultMap>
+  
+    <select id="getUserListByName" parameterType="string" resultMap="userMap">
+  select 
+  	id,
+  	username name,
+  	age
+  from user where username like #{name}
+  </select>
+  
+  
+</mapper>
